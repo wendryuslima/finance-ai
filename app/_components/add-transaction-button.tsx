@@ -3,6 +3,7 @@ import { ArrowDownUpIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -41,6 +42,7 @@ import {
   TRANSACTION_PAYMENT_METHOD_OPTIONS,
   TRANSACTION_TYPE_OPTIONS,
 } from "./_constants/transactions";
+import { DatePickerDemo } from "./ui/date-picker";
 
 const formSchema = z.object({
   name: z.string().trim().min(1, {
@@ -68,10 +70,14 @@ const formSchema = z.object({
   }),
 });
 
-const onSubmit = () => {};
+type FormSchema = z.infer<typeof formSchema>;
+
+const onSubmit = (data: FormSchema) => {
+  console.log(data);
+};
 
 const AddTransactionButton = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       amount: "",
@@ -83,14 +89,20 @@ const AddTransactionButton = () => {
     },
   });
   return (
-    <Dialog>
+    <Dialog
+      onOpenChange={(open) => {
+        if (!open) {
+          form.reset();
+        }
+      }}
+    >
       <DialogTrigger asChild>
         <Button className="rounded-full font-bold">
           <ArrowDownUpIcon />
           Adicionar transação
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="max-h-[80vh] overflow-y-auto [&::-webkit-scrollbar]:hidden">
         <DialogHeader>
           <DialogTitle>Adicionar transação</DialogTitle>
           <DialogDescription>Insira as informações abaixo</DialogDescription>
@@ -214,9 +226,32 @@ const AddTransactionButton = () => {
               )}
             />
 
+            <FormField
+              control={form.control}
+              name="date"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Data</FormLabel>
+                  <DatePickerDemo
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <DialogFooter>
-              <Button variant="outline">Cancelar</Button>
-              <Button variant="default">Adicionar</Button>
+              <DialogClose>
+                <Button type="button" variant="outline">
+                  Cancelar
+                </Button>
+              </DialogClose>
+
+              <Button type="submit" variant="default">
+                Adicionar
+              </Button>
             </DialogFooter>
           </form>
         </Form>
