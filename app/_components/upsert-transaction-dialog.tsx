@@ -127,7 +127,7 @@ const UpserTransactionDialog = ({
       <DialogContent className="max-h-[80vh] overflow-y-auto [&::-webkit-scrollbar]:hidden">
         <DialogHeader>
           <DialogTitle>
-            {isUpdate ? "Atualizar" : "Adicionar"}
+            {isUpdate ? "Atualizar" : ""}
             Adicionar transação
           </DialogTitle>
           <DialogDescription>Insira as informações abaixo</DialogDescription>
