@@ -1,6 +1,6 @@
 import { db } from "@/app/_lib/prisma";
 import { TransactionType } from "@prisma/client";
-import { TransactioPercentagePerType } from "./types";
+import { TotalExpensePerCategory, TransactionPercentagePerType } from "./types";
 
 export const getDashboard = async (month: string) => {
   const where = {
@@ -34,7 +34,6 @@ export const getDashboard = async (month: string) => {
     )?._sum?.amount,
   );
   const balance = depositsTotal - investimentTotals - expensesTotals;
-
   const transactionsTotal = Number(
     (
       await db.transaction.aggregate({
@@ -43,17 +42,36 @@ export const getDashboard = async (month: string) => {
       })
     )._sum.amount,
   );
-  const typePercentage: TransactioPercentagePerType = {
+  const typePercentage: TransactionPercentagePerType = {
     [TransactionType.DEPOSIT]: Math.round(
       (Number(depositsTotal || 0) / Number(transactionsTotal)) * 100,
     ),
     [TransactionType.EXPENSE]: Math.round(
-      (Number(depositsTotal || 0) / Number(transactionsTotal)) * 100,
+      (Number(investimentTotals || 0) / Number(transactionsTotal)) * 100,
     ),
     [TransactionType.INVESTMENT]: Math.round(
-      (Number(depositsTotal || 0) / Number(transactionsTotal)) * 100,
+      (Number(expensesTotals || 0) / Number(transactionsTotal)) * 100,
     ),
   };
+
+  const totalExpensePerCategory: TotalExpensePerCategory[] = (
+    await db.transaction.groupBy({
+      by: ["category"],
+      where: {
+        ...where,
+        type: TransactionType.EXPENSE,
+      },
+      _sum: {
+        amount: true,
+      },
+    })
+  ).map((category) => ({
+    category: category.category,
+    totalAmount: Number(category._sum.amount),
+    percentageOfTotal: Math.round(
+      (Number(category._sum.amount) / Number(expensesTotals)) * 100,
+    ),
+  }));
 
   return {
     balance,
@@ -61,5 +79,6 @@ export const getDashboard = async (month: string) => {
     investimentTotals,
     expensesTotals,
     typePercentage,
+    totalExpensePerCategory,
   };
 };
