@@ -26,7 +26,7 @@ export default function RootLayout({
             baseTheme: dark,
           }}
         >
-          {children}
+          <div className="h-full overflow-auto">{children}</div>
         </ClerkProvider>
       </body>
     </html>
