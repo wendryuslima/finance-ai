@@ -7,17 +7,16 @@ import { GenerateAiReportSchema } from "./schema";
 
 export const GenerateAiReport = async ({ month }: GenerateAiReportSchema) => {
   GenerateAiReportSchema.parse({ month });
-  const { userId } = auth();
+  const { userId } = await auth();
   if (!userId) {
     throw new Error("Unauthorized");
   }
-
   const user = await clerkClient().users.getUser(userId);
   const hasPremiumPlan = user.publicMetadata.subscriptionPlan === "premium";
-
   if (!hasPremiumPlan) {
     throw new Error("You need a premium plan to generate AI reports");
   }
+
   const openAi = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
   });
@@ -44,7 +43,7 @@ export const GenerateAiReport = async ({ month }: GenerateAiReportSchema) => {
       {
         role: "system",
         content:
-          "Você é um especialista em gestão e organização de finanças pessoais. Você ajuda as pessoas a organizarem melhor suas finanças",
+          "Você é um especialista em gestão e organização de finanças pessoais. Você ajuda as pessoas a organizarem melhor as suas finanças.",
       },
       {
         role: "user",
