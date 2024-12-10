@@ -1,5 +1,5 @@
 import { auth, clerkClient } from "@clerk/nextjs/server";
-import GetCurrentMonthTransaction from "../get-current-month-transactions";
+import { GetCurrentMonthTransaction } from "../get-current-month-transactions";
 
 export const canUserAddTransaction = async () => {
   const { userId } = await auth();
