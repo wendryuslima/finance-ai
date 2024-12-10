@@ -38,7 +38,7 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
   return (
     <>
       <NavBar />
-      <div className="p-6 flex flex-col space-y-6 lg:overflow-hidden">
+      <div className="p-10   overflow-hidden flex flex-col space-y-6 lg:overflow-hidden">
         {/* Header */}
         <div className="flex justify-between">
           <h1 className="text-2xl font-bold">Dashboard</h1>
@@ -53,7 +53,7 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
           </div>
         </div>
 
-        <div className="grid gap-4 lg:grid-cols-[2fr,1fr] lg:overflow-hidden">
+        <div className="flex flex-col gap-4 lg:grid-cols-[2fr,1fr] lg:overflow-hidden">
           <div className="flex flex-col gap-4 lg:overflow-hidden">
             <SummaryCards
               month={month}

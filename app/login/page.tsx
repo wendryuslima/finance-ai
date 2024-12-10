@@ -12,7 +12,7 @@ const LoginPage = async () => {
     redirect("/");
   }
   return (
-    <div className="grid h-full grid-cols-2">
+    <div className="lg:grid flex-col h-full lg:grid-cols-2">
       <div className="flex flex-col h-full justify-center p-8 max-w-[550px] mx-auto">
         <Image
           src="/logo-finance-ai.svg"
