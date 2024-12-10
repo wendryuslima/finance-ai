@@ -42,9 +42,8 @@ const Subscription = async () => {
             <CardContent className="space-y-6 py-8">
               <div className="flex items-center gap-2">
                 <CheckIcon className="text-primary" />
-                <p>
-                  Apenas 10 transações por mês ({currentMonthTransactions}/10)
-                </p>
+                <p> Apenas 10 transações por mês</p>
+                {!hasPremium ? <p>({currentMonthTransactions}/10)</p> : ""}
               </div>
 
               <div className="flex items-center gap-2">
