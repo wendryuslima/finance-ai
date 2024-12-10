@@ -15,7 +15,7 @@ export const GenerateAiReport = async ({ month }: GenerateAiReportSchema) => {
   const user = await clerkClient().users.getUser(userId);
   const hasPremiumPlan = user.publicMetadata.subscriptionPlan === "premium";
 
-  if (hasPremiumPlan) {
+  if (!hasPremiumPlan) {
     throw new Error("You need a premium plan to generate AI reports");
   }
   const openAi = new OpenAI({
