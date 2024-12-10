@@ -26,7 +26,7 @@ const Subscription = async () => {
         <h1 className="font-bold text-2xl">Assinatura</h1>
 
         <div className="flex-col flex items-center lg:flex lg:flex-col gap-6">
-          <Card className="w-[400px] mb-3 lg:mb-0">
+          <Card className="w-[300px] lg:w-[400px] mb-3 lg:mb-0">
             <CardHeader className="border-b border-solid py-8 relative">
               <h2 className="font-semibold text-2xl text-center">
                 Plano Básico
@@ -53,7 +53,7 @@ const Subscription = async () => {
             </CardContent>
           </Card>
 
-          <Card className="w-[400px] mb-3 lg:mb-0">
+          <Card className="w-[300px] lg:w-[400px] mb-3 lg:mb-0">
             <CardHeader className="border-b border-solid py-8 relative">
               {hasPremium && (
                 <Badge className="absolute top-4 bg-primary/10 text-primary  left-4">
