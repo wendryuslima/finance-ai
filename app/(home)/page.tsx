@@ -38,7 +38,7 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
   return (
     <>
       <NavBar />
-      <div className="p-10   overflow-hidden flex flex-col space-y-6 lg:overflow-hidden">
+      <div className="p-10 overflow-hidden flex flex-col space-y-6 lg:overflow-hidden">
         <div className="flex items-center justify-center">
           <h1 className="text-2xl font-bold">Dashboard</h1>
         </div>

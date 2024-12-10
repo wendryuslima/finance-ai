@@ -52,7 +52,7 @@ const NavBar = () => {
           </Link>
         </div>
 
-        <UserButton showName />
+        <UserButton />
       </div>
     </nav>
   );
