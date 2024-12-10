@@ -15,16 +15,12 @@ const AcquirePlan = () => {
     }
     const stripe = await loadStripe(
       process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
-      {},
     );
-
     if (!stripe) {
       throw new Error("Stripe not found");
     }
-
     await stripe.redirectToCheckout({ sessionId });
   };
-
   const hasPremiumPlan = user?.publicMetadata.subscriptionPlan == "premium";
   if (hasPremiumPlan) {
     return (

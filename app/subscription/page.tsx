@@ -6,7 +6,7 @@ import { CheckIcon, XIcon } from "lucide-react";
 import AcquirePlan from "./_components/acquire-plan-button";
 import { Badge } from "../_components/ui/badge";
 
-import GetCurrentMonthTransaction from "../_data/get-current-month-transactions";
+import { GetCurrentMonthTransaction } from "../_data/get-current-month-transactions";
 
 const Subscription = async () => {
   const { userId } = await auth();
@@ -16,8 +16,8 @@ const Subscription = async () => {
   }
 
   const user = await clerkClient().users.getUser(userId);
-  const hasPremium = user.publicMetadata.subscriptionPlan == "premium";
   const currentMonthTransactions = await GetCurrentMonthTransaction();
+  const hasPremium = user.publicMetadata.subscriptionPlan == "premium";
   return (
     <>
       <NavBar />
