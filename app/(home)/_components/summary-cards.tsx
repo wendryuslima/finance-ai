@@ -31,7 +31,7 @@ const SummaryCards = async ({
         userCanAddTransaction={userCanAddTransaction}
       />
 
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid gap-6 lg:grid-cols-3">
         <SummaryDetails
           icon={<PiggyBankIcon size={16} />}
           title="Investido"

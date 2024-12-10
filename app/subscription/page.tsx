@@ -25,8 +25,8 @@ const Subscription = async () => {
       <div className=" space-y-6 p-6">
         <h1 className="font-bold text-2xl">Assinatura</h1>
 
-        <div className="flex gap-6">
-          <Card className="w-[450px]">
+        <div className="flex-col  md:flex md:flex-row gap-6">
+          <Card className="w-[450px] mb-3 lg:mb-0">
             <CardHeader className="border-b border-solid py-8 relative">
               <h2 className="font-semibold text-2xl text-center">
                 Plano Básico
