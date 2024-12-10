@@ -8,12 +8,14 @@ interface SummaryDetailsProps {
   title: string;
   amount: number;
   size?: "small" | "large";
+  userCanAddTransaction?: boolean;
 }
 const SummaryDetails = ({
   icon,
   title,
   amount,
   size = "small",
+  userCanAddTransaction,
 }: SummaryDetailsProps) => {
   return (
     <Card className={`${size === "large" ? "bg-white bg-opacity-5" : ""}  `}>
@@ -34,7 +36,9 @@ const SummaryDetails = ({
             currency: "BRL",
           }).format(amount)}
         </p>
-        {size === "large" && <AddTransactionButton />}
+        {size === "large" && (
+          <AddTransactionButton userCanAddTransaction={userCanAddTransaction} />
+        )}
       </CardContent>
     </Card>
   );
