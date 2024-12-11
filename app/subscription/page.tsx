@@ -17,7 +17,7 @@ const Subscription = async () => {
 
   const user = await clerkClient().users.getUser(userId);
   const currentMonthTransactions = await GetCurrentMonthTransaction();
-  const hasPremium = user.publicMetadata.subscriptionPlan == "premium";
+  const hasPremiumPlan = user?.publicMetadata.subscriptionPlan == "premium";
   return (
     <>
       <NavBar />
@@ -43,7 +43,7 @@ const Subscription = async () => {
               <div className="flex items-center gap-2">
                 <CheckIcon className="text-primary" />
                 <p> Apenas 10 transações por mês</p>
-                {!hasPremium ? <p>({currentMonthTransactions}/10)</p> : ""}
+                {!hasPremiumPlan ? <p>({currentMonthTransactions}/10)</p> : ""}
               </div>
 
               <div className="flex items-center gap-2">
@@ -55,7 +55,7 @@ const Subscription = async () => {
 
           <Card className="w-[300px] lg:w-[400px] mb-3 lg:mb-0">
             <CardHeader className="border-b border-solid py-8 relative">
-              {hasPremium && (
+              {hasPremiumPlan && (
                 <Badge className="absolute top-4 bg-primary/10 text-primary  left-4">
                   Ativo
                 </Badge>

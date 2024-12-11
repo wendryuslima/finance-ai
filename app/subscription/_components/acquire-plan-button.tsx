@@ -24,17 +24,19 @@ const AcquirePlan = () => {
   const hasPremiumPlan = user?.publicMetadata.subscriptionPlan == "premium";
   if (hasPremiumPlan) {
     return (
-      <Link href={process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL as string}>
-        <Button className="rounded-full w-full font-bold" variant="link">
+      <Button className="w-full rounded-full font-bold" variant="link">
+        <Link
+          href={`${process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL as string}?prefilled_email=${user.emailAddresses[0].emailAddress}`}
+        >
           Gerenciar plano
-        </Button>
-      </Link>
+        </Link>
+      </Button>
     );
   }
   return (
     <Button
+      className="w-full rounded-full font-bold"
       onClick={handleAcquirePlanClick}
-      className="rounded-full w-full font-bold"
     >
       Adquirir plano
     </Button>

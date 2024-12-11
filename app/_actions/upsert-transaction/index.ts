@@ -10,7 +10,7 @@ import {
 import { upsertTransactionSchema } from "./schema";
 import { revalidatePath } from "next/cache";
 
-interface upsertTransactionProps {
+interface UpsertTransactionProps {
   id?: string;
   name: string;
   amount: number;
@@ -20,13 +20,12 @@ interface upsertTransactionProps {
   date: Date;
 }
 
-export const upsertTransaction = async (params: upsertTransactionProps) => {
+export const upsertTransaction = async (params: UpsertTransactionProps) => {
   upsertTransactionSchema.parse(params);
   const { userId } = await auth();
   if (!userId) {
-    throw new Error("Unauthorizes");
+    throw new Error("Unauthorized");
   }
-
   await db.transaction.upsert({
     update: { ...params, userId },
     create: { ...params, userId },

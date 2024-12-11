@@ -124,7 +124,7 @@ const UpserTransactionDialog = ({
       }}
     >
       <DialogTrigger asChild></DialogTrigger>
-      <DialogContent className="max-h-[80vh] overflow-y-auto [&::-webkit-scrollbar]:hidden">
+      <DialogContent className="max-h-[80vh] w-[350px] lg:w-[500px] overflow-y-auto [&::-webkit-scrollbar]:hidden">
         <DialogHeader>
           <DialogTitle>
             {isUpdate ? "Atualizar" : ""}
@@ -275,14 +275,18 @@ const UpserTransactionDialog = ({
               )}
             />
 
-            <DialogFooter>
+            <DialogFooter className="lg:w-full lg:justify-between">
               <DialogClose>
-                <Button type="button" variant="outline">
+                <Button
+                  className="w-full mt-4 lg:mt-0"
+                  type="button"
+                  variant="outline"
+                >
                   Cancelar
                 </Button>
               </DialogClose>
 
-              <Button type="submit" variant="default">
+              <Button type="submit" className="p-5" variant="default">
                 {isUpdate ? "Atualizar" : "Adicionar"}
               </Button>
             </DialogFooter>
