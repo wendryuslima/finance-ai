@@ -18,13 +18,17 @@ const Transactions = async () => {
     where: {
       userId,
     },
+
+    orderBy: {
+      date: "desc",
+    },
   });
 
   const userCanAddTransaction = await canUserAddTransaction();
   return (
     <>
       <NavBar />
-      <div className="flex flex-col space-y-1 px-6 py-2 lg:overflow-hidden">
+      <div className="flex flex-col space-y-1 px-6 py-2 overflow-hidden lg:overflow-hidden">
         <div className="flex w-full items-center justify-between">
           <h1 className="text-xl font-bold lg:text-2xl">Transações</h1>
           <div className="flex p-2 space-x-2">
