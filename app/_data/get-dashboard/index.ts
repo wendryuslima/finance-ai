@@ -13,15 +13,11 @@ export const getDashboard = async (month: string) => {
     throw new Error("Month is required");
   }
 
-  const year = new Date().getFullYear();
-  const start = new Date(`${year}-${month}-01`);
-  const end = new Date(new Date(start).setMonth(start.getMonth() + 1));
-
   const where = {
     userId,
     date: {
-      gte: start,
-      lt: end,
+      gte: new Date(`2024-${month}-01`),
+      lt: new Date(`2024-${month}-31`),
     },
   };
 

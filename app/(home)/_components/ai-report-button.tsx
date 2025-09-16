@@ -15,7 +15,7 @@ import { BotIcon, Loader2Icon } from "lucide-react";
 import { GenerateAiReport } from "../_actions/-generate-ai-report";
 import { useState } from "react";
 import { ScrollArea } from "@/app/_components/ui/scroll-area";
-import MarkDown from "react-markdown";
+import Markdown from "react-markdown";
 import Link from "next/link";
 import { useToast } from "@/app/_hooks/use-toast";
 
@@ -78,7 +78,7 @@ const AiReportButton = ({ month, hasPremiumPlan }: AiReportButtonProps) => {
           text-white prose-h3:text-white prose-h4:text-white  prose-strong:text-white"
             >
               {" "}
-              <MarkDown>{report}</MarkDown>
+              <Markdown>{report}</Markdown>
             </ScrollArea>
 
             <DialogFooter>
