@@ -25,18 +25,23 @@ export const POST = async (request: Request) => {
   switch (event.type) {
     case "invoice.paid": {
       // Atualizar o usuário com o seu novo plano
-      const { customer, subscription, subscription_details } =
-        event.data.object;
-      const clerkUserId = subscription_details?.metadata?.clerk_user_id;
+      const invoice = event.data.object as Stripe.Invoice;
+      const subscriptionId =
+        typeof invoice.subscription === "string"
+          ? invoice.subscription
+          : invoice.subscription?.id;
+      if (!subscriptionId) {
+        return NextResponse.error();
+      }
+      const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+      const clerkUserId = subscription.metadata?.clerk_user_id;
       if (!clerkUserId) {
         return NextResponse.error();
       }
-      await (
-        await clerkClient()
-      ).users.updateUser(clerkUserId, {
+      await clerkClient.users.updateUser(clerkUserId, {
         privateMetadata: {
-          stripeCustomerId: customer,
-          stripeSubscriptionId: subscription,
+          stripeCustomerId: invoice.customer,
+          stripeSubscriptionId: subscription.id,
         },
         publicMetadata: {
           subscriptionPlan: "premium",
@@ -53,9 +58,7 @@ export const POST = async (request: Request) => {
       if (!clerkUserId) {
         return NextResponse.error();
       }
-      await (
-        await clerkClient()
-      ).users.updateUser(clerkUserId, {
+      await clerkClient.users.updateUser(clerkUserId, {
         privateMetadata: {
           stripeCustomerId: null,
           stripeSubscriptionId: null,
