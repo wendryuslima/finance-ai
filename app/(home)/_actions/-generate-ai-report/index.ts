@@ -31,6 +31,7 @@ export const GenerateAiReport = async ({ month }: GenerateAiReportSchema) => {
 
   const transactions = await db.transaction.findMany({
     where: {
+      userId,
       date: {
         gte: start,
         lt: end,
