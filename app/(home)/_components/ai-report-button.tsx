@@ -17,6 +17,7 @@ import { useState } from "react";
 import { ScrollArea } from "@/app/_components/ui/scroll-area";
 import MarkDown from "react-markdown";
 import Link from "next/link";
+import { useToast } from "@/app/_hooks/use-toast";
 
 interface AiReportButtonProps {
   month: string;
@@ -25,6 +26,7 @@ interface AiReportButtonProps {
 const AiReportButton = ({ month, hasPremiumPlan }: AiReportButtonProps) => {
   const [report, setReport] = useState<string | null>();
   const [reportIsLoading, setReportIsLoading] = useState(false);
+  const { toast } = useToast();
   const handleGenerateReportClick = async () => {
     try {
       setReportIsLoading(true);
@@ -32,6 +34,15 @@ const AiReportButton = ({ month, hasPremiumPlan }: AiReportButtonProps) => {
       setReport(AiReport);
     } catch (error) {
       console.error(error);
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Falha ao gerar relatório. Tente novamente.";
+      toast({
+        title: "Erro ao gerar relatório",
+        description: message,
+        variant: "destructive",
+      });
     } finally {
       setReportIsLoading(false);
     }

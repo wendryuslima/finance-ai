@@ -21,11 +21,19 @@ export const GenerateAiReport = async ({ month }: GenerateAiReportSchema) => {
     apiKey: process.env.OPENAI_API_KEY,
   });
 
+  if (!process.env.OPENAI_API_KEY) {
+    throw new Error("OPENAI_API_KEY não configurada no servidor");
+  }
+
+  const year = new Date().getFullYear();
+  const start = new Date(`${year}-${month}-01`);
+  const end = new Date(new Date(start).setMonth(start.getMonth() + 1));
+
   const transactions = await db.transaction.findMany({
     where: {
       date: {
-        gte: new Date(`2024-${month}-01`),
-        lt: new Date(`2024-${month}-31`),
+        gte: start,
+        lt: end,
       },
     },
   });
